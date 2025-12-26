@@ -24,7 +24,8 @@ export default function UploadPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const apiBaseUrl =
-    import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+    import.meta.env.VITE_API_BASE_URL ||
+    "https://deepfake-detection-backend-mog6.onrender.com";
   const resetResult = () => {
     setResultUrl(null);
     setResultMediaType(null);
@@ -93,10 +94,10 @@ export default function UploadPage() {
       }
       const data = await res.json();
       setPrediction(data.label);
-      setConfidence(data.confidence);
+      // setConfidence(data.percentage);
       setResultMediaType(data.result_media_type);
-      setFramesProcessed(data.frames_processed || null);
-      setResultUrl(`${apiBaseUrl}${data.result_url}`);
+      setFramesProcessed(data.frames_scored || null);
+      setResultUrl(`${apiBaseUrl}${data.heatmap_url}`);
     } catch (err) {
       setError(err.message || "Unexpected error.");
     } finally {
