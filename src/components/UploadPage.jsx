@@ -80,7 +80,7 @@ export default function UploadPage() {
     try {
       const form = new FormData();
       form.append("file", file);
-      const res = await fetch(`${apiBaseUrl}/predict`, {
+      const res = await fetch(`${apiBaseUrl}/predict?sample_every=15`, {
         method: "POST",
         body: form,
       });
@@ -97,7 +97,7 @@ export default function UploadPage() {
       // setConfidence(data.percentage);
       setResultMediaType(data.result_media_type);
       setFramesProcessed(data.frames_scored || null);
-      setResultUrl(`${apiBaseUrl}${data.heatmap_url}`);
+      setResultUrl(`${apiBaseUrl}${data.download_url}`);
     } catch (err) {
       setError(err.message || "Unexpected error.");
     } finally {
